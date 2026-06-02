@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRUD Dashboard</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>CRUD Dashboard</h1>
+
+    <form action="/add" method="POST" class="add-form">
+
+        <input type="text"
+               name="name"
+               placeholder="Enter Name"
+               required>
+
+        <input type="number"
+               name="age"
+               placeholder="Enter Age"
+               required>
+
+        <button type="submit">Add Student</button>
+
+    </form>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for student in students %}
+        <tr>
+
+            <form action="/edit/{{ student.id }}" method="POST">
+
+                <td>{{ student.id }}</td>
+
+                <td>
+                    <input type="text"
+                           name="name"
+                           value="{{ student.name }}">
+                </td>
+
+                <td>
+                    <input type="number"
+                           name="age"
+                           value="{{ student.age }}">
+                </td>
+
+                <td>
+
+                    <button class="update-btn">
+                        Update
+                    </button>
+
+                    <a href="/delete/{{ student.id }}">
+                        <button type="button"
+                                class="delete-btn">
+                            Delete
+                        </button>
+                    </a>
+
+                </td>
+
+            </form>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+</html>
